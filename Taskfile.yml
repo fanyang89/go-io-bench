@@ -1,0 +1,29 @@
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - task: build
+
+  build:
+    cmds:
+      - task: build-darwin
+      - task: build-linux
+
+  build-darwin:
+    env:
+      GOOS: darwin
+      GOARCH: arm64
+    cmds:
+      - go build -o bin/darwin-arm64/ io_bench.go
+
+  build-linux:
+    env:
+      GOOS: linux
+      GOARCH: amd64
+    cmds:
+      - go build -o bin/linux-amd64/ io_bench.go
+
+  clean:
+    cmds:
+      - rm -rf ./bin
